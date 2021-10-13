@@ -111,12 +111,12 @@ public class Vista {
         boolean bandera = false;
 
         try{
-            System.out.println("Ingrese el número de jugadores que tendrá en esta partida (máximo 2 jugadores)");
+            System.out.println("Ingrese el número de jugadores que tendrá en esta partida (máximo 3 jugadores)");
         
             while (!bandera){ //Ciclo para evaluar si se ingresó un tamano de memoria correcto
                 jugadores = Integer.parseInt(scan.nextLine());
                 System.out.println();
-                if (jugadores == 1 || jugadores == 2) //Verificar si el espacio de memoria es válido
+                if (jugadores == 1 || jugadores == 2 || jugadores == 3) //Verificar si el numero de jugadores es válido
                     bandera = true;
                 else 
                     System.out.println("ERROR: Ingrese un tamano de jugadores valido"); 
@@ -145,13 +145,14 @@ public class Vista {
         
         try{
             System.out.println("Qué rol será combatiente? (Guerrero/Explorador)");
-            System.out.println("Guerrero: 40 de vida, 4 poder de ataque, items [espada ignea, lanza voladora], capacidad items: 10");
-            System.out.println("Explorador: 20 de vida, 2 poder de ataque, items [curar, pico de acero, flecha venenosa, incrementar ataque], capacidad items: 20");
+            System.out.println("Guerrero: 60 de vida, 4 poder de ataque, items [espada ignea, lanza voladora], capacidad items: 10");
+            System.out.println("Explorador: 40 de vida, 2 poder de ataque, items [curar, pico de acero, flecha venenosa, incrementar ataque], capacidad items: 20");
+            System.out.println("Cazador: 20 de vida, 2 de poder de ataque, items [mascota, disparo dirigido]");
 
             while (!bandera){ //Ciclo para evaluar si se ingresó un tipo de jugador correcto
                 tipo = scan.nextLine().toLowerCase();
                 System.out.println();
-                if (tipo.equals("guerrero") || tipo.equals("explorador")) //Tipos admitidos
+                if (tipo.equals("guerrero") || tipo.equals("explorador") || tipo.equals("cazador")) //Tipos admitidos
                     bandera = true;
                 else 
                     System.out.println("ERROR: Ingrese un rol válido"); 
@@ -214,6 +215,8 @@ public class Vista {
             System.out.println("5. Flecha venenosa. Disponible para Exploradores y Dragones. Un veneno unico ha sido aplicado a estas flechas que reducen 3 puntos de vida. Usa 1 item para los exploradores" + "\n");
             System.out.println("6. Incrementar ataque. Disponible para Exploradores y Jefes Brujos. Un hechizo que hace que el ataque del combatiente que se desee se incremente en 2. Usa 5 items para los exploradores" + "\n");
             System.out.println("7. Experiencia. Disponible para todos los enemigos normales (no jefes). Una habilidad que permite que el enemigo pueda ser jefe. Se necesita 4 veces esta habilidad para lograr ser jefe" + "\n");
+            System.out.println("8. Mascota. Disponible para cazadores. Invoca una mascota que obedece al cazador y ataca objetivos. Usa 5 items para los cazadores" + "\n");
+            System.out.println("9. Disparo dirigido. Disponible para Cazadores. Un disparo directo al objetivo que desee el cazador. Usa 3 items" + "\n");
             especial = scan.nextLine().toLowerCase();
             System.out.println();       
         } catch (Exception e){ //Captura cualquier error que no sea de input

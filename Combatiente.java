@@ -14,7 +14,7 @@ public abstract class Combatiente {
     Nombre del programa: Combatiente.java
     @version: 
         - Creación: 22/09/2021
-        - Última modificación: 27/09/2021
+        - Última modificación: 12/10/2021
 
     Clase que tiene las propiedades y métodos de los combatientes. Sirve como padre 
     */
@@ -36,16 +36,22 @@ public abstract class Combatiente {
 
         //Guerreo
         if (this.tipo.equals("guerrero")){
-            this.vida = 40;
+            this.vida = 60;
             this.ataque = 4;
             this.especial = "item"; 
         }
 
         //Explorador
         if (this.tipo.equals("explorador")){
-            this.vida = 20;
+            this.vida = 40;
             this.ataque = 2;
             this.especial = "item"; 
+        }
+
+        if (this.tipo.equals("cazador")){
+            this.vida = 20;
+            this.ataque = 2;
+            this.especial = "item";
         }
 
         //Brujo
@@ -148,6 +154,10 @@ public abstract class Combatiente {
         objetivo.ataque += cantidad;
     }
     //****************************************************************
+
+    public void mascota(){
+
+    }
 
     /*****************************************************************
      * pasar: retorna un mensaje que indica que el combatiente pasa turno

@@ -14,7 +14,7 @@ public class Jugador extends Combatiente{
     Nombre del programa: Jugador.java
     @version: 
         - Creación: 22/09/2021
-        - Última modificación: 27/09/2021
+        - Última modificación: 12/10/2021
 
     Clase que tiene las propiedades y métodos específicos de los jugadores. Sirve como hijo 
     */
@@ -48,6 +48,14 @@ public class Jugador extends Combatiente{
             items[1] = "pico de acero";
             items[2] = "flecha venenosa";
             items[3] = "incrementar ataque";
+        }
+
+        //Cazador
+        if (this.tipo.equals("cazador")){
+            cantidadItems = 15;
+            items = new String[2];
+            items[0] = "mascota";
+            items[1] = "disparo dirigido";
         }
     }
     //****************************************************************
@@ -95,6 +103,20 @@ public class Jugador extends Combatiente{
         else if(cantidadItems-5 > 0 && habilidad.equals("incrementar ataque") && this.tipo.equals("explorador")){
             cantidadItems -=5;
             incrementar(objetivo, 2);
+            return this.tipo + " : Ejecutando " + habilidad + " hacia " + objetivo + "\n" + "Ahora le quedan " + this.cantidadItems + " de items";
+        }
+
+        //Mascota
+        else if(cantidadItems-5 > 0 && habilidad.equals("mascota") && this.tipo.equals("cazador")){
+            cantidadItems -= 5;
+            mascota();
+            return this.tipo + " : Invocando Mascota " + "\n" + "Ahora le quedan " + this.cantidadItems + " de items";
+        }
+
+        //Disparo dirigido
+        else if(cantidadItems-1 > 0 && habilidad.equals("disparo dirigido") && this.tipo.equals("cazador")){
+            cantidadItems--;
+            atacar(objetivo, 3);
             return this.tipo + " : Ejecutando " + habilidad + " hacia " + objetivo + "\n" + "Ahora le quedan " + this.cantidadItems + " de items";
         }
 
