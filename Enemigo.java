@@ -8,7 +8,7 @@
 #      #    ########   ########   #######   ########   #######   #      ##    #########
 */
 
-public class Enemigo extends Combatiente {
+public class Enemigo extends Acompanante {
     /** 
     @author: José Pablo Kiesling Lange
     Nombre del programa: Enemigo.java
@@ -20,7 +20,6 @@ public class Enemigo extends Combatiente {
     */
 
     //---------------------------PROPIEDADES-------------------------
-    protected String habilidad;
     protected int experiencia = 0;
 
     //---------------------------MÉTODOS------------------------------
@@ -34,15 +33,15 @@ public class Enemigo extends Combatiente {
         
         //Brujo
         if(this.tipo.equals("brujo"))
-            this.habilidad = "Curar";
+            this.habilidad = "curar";
 
         //Valquiria
         if(this.tipo.equals("valquiria"))
-            this.habilidad = "Pico de acero";
+            this.habilidad = "pico de acero";
 
         //Dragón
         if(this.tipo.equals("dragon"))
-            this.habilidad = "Flecha Venenosa";
+            this.habilidad = "flecha venenosa";
     }
     //****************************************************************
 
@@ -51,19 +50,19 @@ public class Enemigo extends Combatiente {
      */
     public String especial(String habilidad, Combatiente objetivo){
         //Curar
-        if (habilidad.equals("curar") && this.tipo.equals("brujo")){
+        if (habilidad.equals(this.habilidad) && this.tipo.equals("brujo")){
             curar(objetivo, 5);
             return this.tipo + " : Ejecutando " + habilidad + " hacia " + objetivo;
         }
 
         //Pico de acero
-        else if(habilidad.equals("pico de acero") && this.tipo.equals("valquiria")){
+        else if(habilidad.equals(this.habilidad) && this.tipo.equals("valquiria")){
             atacar(objetivo, 4);
             return this.tipo + " : Ejecutando " + habilidad + " hacia " + objetivo;
         }
 
         //Flecha venenosa
-        else if(habilidad.equals("flecha venenosa") && this.tipo.equals("dragon")){
+        else if(habilidad.equals(this.habilidad) && this.tipo.equals("dragon")){
             atacar(objetivo, 3);
             return this.tipo + " : Ejecutando " + habilidad + " hacia " + objetivo;
         }
@@ -72,6 +71,18 @@ public class Enemigo extends Combatiente {
         else if(habilidad.equals("experiencia")){
             this.experiencia+=25;
             return this.tipo + " : Aumentando la experiencia. Ahora la experiencia de " + this.tipo + " es: " + this.experiencia + "/100";
+        }
+
+        //Daga infernal
+        else if(habilidad.equals("daga infernal")){
+            atacar(objetivo, 8);
+            return this.tipo + " : Ejecutando " + habilidad + " hacia " + objetivo;
+        }
+
+        //Lluvia de lava
+        else if(habilidad.equals("Lluvia de lava")){
+            atacar(objetivo, 6);
+            return this.tipo + " : Ejecutando " + habilidad + " hacia " + objetivo;
         }
 
         else 

@@ -51,6 +51,8 @@ public class Controlador {
             int enemigos = mundo.getEnemigos();
             int combatientes = enemigos + jugadores; //Número de combatientes en la partida
 
+            System.out.println(combatientes);
+
             int opcion = -1;
             while (opcion != 4){ //Ciclo de menú
                 int turno = 0;
@@ -72,6 +74,9 @@ public class Controlador {
                         int enemigo = vista.pedirEnemigo(); //Pedir enemigo al que se quiere atacar
                         Combatiente objetivo = mundo.objetivo(enemigo); //Relacionar el input con el combatiente
                         mundo.atacar(turno, objetivo); //Atacar
+                        if (mundo.objetivo(turno).getTipo().equals("cazador")){
+                            mundo.ataqueMascota(mundo.objetivo(turno).ataque, objetivo, "atacar");
+                        }
                         turno++; //Cambiar de turno
                         String muerte = mundo.muerte(); //Desplegar si con esta acción ocurrió una muerte
                         vista.muerte(muerte);
@@ -97,8 +102,16 @@ public class Controlador {
                         if (especial.equals("experiencia")){ //Si quiere benefiicarse, no se pide enemigo
                             enemigo = turno;
                         }
+                        if (especial.equals("mascota")){ //Crear una mascota
+                            enemigo = turno;
+                            String saludo_mascota = mundo.mascota();
+                            vista.saludar(saludo_mascota);
+                        }
                         else{
                             enemigo = vista.pedirEnemigo(); //Pedir enemigo al que se quiere emplear el especial
+                            Combatiente objetivo = mundo.objetivo(enemigo); //Relacionar el input con el combatiente
+                            if (especial.equals("disparo dirigido") && mundo.objetivo(turno).getTipo().equals("cazador")) //Disparo dirigido
+                                mundo.ataqueMascota(mundo.objetivo(turno).ataque, objetivo, "atacar");
                         }
                         Combatiente objetivo = mundo.objetivo(enemigo); //Relacionar el input con el combatiente
                         mundo.especial(turno, especial, objetivo); //Ejecutar el especial
@@ -128,6 +141,7 @@ public class Controlador {
                         break;
                     }
                 }
+
             }
         } catch (Exception e){
             String s = "ERROR: " + e.getMessage();

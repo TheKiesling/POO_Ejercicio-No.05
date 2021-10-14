@@ -24,6 +24,7 @@ public abstract class Combatiente {
     protected int vida;
     protected int ataque;
     protected String especial;
+    private Mundo mundo;
 
     //---------------------------MÉTODOS------------------------------
 
@@ -72,6 +73,12 @@ public abstract class Combatiente {
         if (this.tipo.equals("dragon")){
             this.vida = 60;
             this.ataque = 4;
+            this.especial = "habilidad";
+        }
+
+        //Mascota
+        if (this.tipo.equals("mascota")){
+            this.vida = 10;
             this.especial = "habilidad";
         }
     }
@@ -156,7 +163,7 @@ public abstract class Combatiente {
     //****************************************************************
 
     public void mascota(){
-
+        mundo.mascota();
     }
 
     /*****************************************************************
@@ -169,10 +176,9 @@ public abstract class Combatiente {
     //****************************************************************
 
     /*****************************************************************
-     * especial: método que muestra un mensaje predeterminado del uso de habilidad
+     * especial: método abstracto que usa un especial
      * @param habilidad
      * @param objetivo
-     * @return
      */
     public abstract String especial(String habilidad, Combatiente objetivo);
     //****************************************************************

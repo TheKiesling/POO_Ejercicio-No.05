@@ -28,6 +28,7 @@ public class Mundo {
     private ArrayList<Enemigo> enemigo = new ArrayList<Enemigo>(); //Arreglo de los enemigos
     private ArrayList<String> acciones = new ArrayList<String>(); //Arreglo de las acciones
     private ArrayList<Combatiente> combatientes = new ArrayList<Combatiente>(); //Arreglo de los combatientes
+    private ArrayList<Acompanante> acompanantes = new ArrayList<Acompanante>(); //Arreglo de los acompanates
     private Random rand = new Random();
 
     //---------------------------MÉTODOS------------------------------
@@ -36,7 +37,7 @@ public class Mundo {
      * Mundo: permite la asginación de valores nulos a los arreglos
      */
     public Mundo(){
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 11; i++)
             combatientes.add(null);
         for (int i = 0; i < 3; i++)
             acciones.add("");
@@ -266,7 +267,7 @@ public class Mundo {
                 if (combatientes.get(i).getVida() <= 0){ //Si ya no tiene vida
                     muerte += combatientes.get(i).morir(); //Concatenar el mensaje
                     acciones(combatientes.get(i) + " : ha muerto"); //Agregar la acción al arreglo
-                    if(combatientes.get(i).getTipo().equals("guerrero") || combatientes.get(i).getTipo().equals("explorador"))
+                    if(combatientes.get(i).getTipo().equals("guerrero") || combatientes.get(i).getTipo().equals("explorador") || combatientes.get(i).getTipo().equals("cazador"))
                         jugadores--; //Se muere un jugador
                     else
                         enemigos--; //Se muere un enemigo
@@ -299,6 +300,28 @@ public class Mundo {
         return saludo;
     }
     //****************************************************************
+
+    /*****************************************************************
+     * mascota: Crea una mascota y la agrega al arreglo de combatientes
+     * @return
+     */
+    public String mascota(){
+        Acompanante mascota = new Mascota("mascota");
+        combatientes.set(puestoDisponible(), mascota);
+        acompanantes.add(mascota);
+        String saludo = mascota.saludar();
+        return saludo;
+    }
+    //****************************************************************
+
+    public void ataqueMascota(int dano, Combatiente objetivo, String accion){
+        for (int i = 0; i < acompanantes.size(); i++){
+            if(acompanantes.get(i) != null && acompanantes.get(i).getTipo().equals("mascota")){
+                String habilidad = acompanantes.get(i).especial(accion, objetivo);
+                acciones(habilidad);
+            }
+        }
+    }
 
     /*****************************************************************
      * ganar: Verifica si alguno de los dos bandos ganó y de hacerlo, muestra el mensaje del combatiente

@@ -22,6 +22,7 @@ public class Jugador extends Combatiente{
     //---------------------------PROPIEDADES--------------------------
     protected int cantidadItems;
     protected String[] items;
+    protected boolean mascota;
 
     //---------------------------MÉTODOS------------------------------
 
@@ -38,6 +39,7 @@ public class Jugador extends Combatiente{
             items = new String[2];
             items[0] = "espada ignea";
             items[1] = "lanza voladora";
+            mascota = false;
         }
 
         //Explorador
@@ -48,6 +50,7 @@ public class Jugador extends Combatiente{
             items[1] = "pico de acero";
             items[2] = "flecha venenosa";
             items[3] = "incrementar ataque";
+            mascota = false;
         }
 
         //Cazador
@@ -56,6 +59,7 @@ public class Jugador extends Combatiente{
             items = new String[2];
             items[0] = "mascota";
             items[1] = "disparo dirigido";
+            mascota = true;
         }
     }
     //****************************************************************
@@ -109,7 +113,7 @@ public class Jugador extends Combatiente{
         //Mascota
         else if(cantidadItems-5 > 0 && habilidad.equals("mascota") && this.tipo.equals("cazador")){
             cantidadItems -= 5;
-            mascota();
+            this.mascota = false;
             return this.tipo + " : Invocando Mascota " + "\n" + "Ahora le quedan " + this.cantidadItems + " de items";
         }
 
