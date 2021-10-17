@@ -180,7 +180,7 @@ public class Vista {
             while (!bandera){ //Ciclo para evaluar si se ingresó un tamano de memoria correcto
                 enemigo = Integer.parseInt(scan.nextLine());
                 System.out.println();
-                if (enemigo >= 0 && enemigo <= 4) 
+                if (enemigo >= 0) 
                     bandera = true;
                 else 
                     System.out.println("ERROR: Ingrese un numero valido de combatiente"); 

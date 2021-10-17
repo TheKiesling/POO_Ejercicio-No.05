@@ -22,7 +22,6 @@ public class Jugador extends Combatiente{
     //---------------------------PROPIEDADES--------------------------
     protected int cantidadItems;
     protected String[] items;
-    protected boolean mascota;
 
     //---------------------------MÉTODOS------------------------------
 
@@ -111,7 +110,7 @@ public class Jugador extends Combatiente{
         }
 
         //Mascota
-        else if(cantidadItems-5 > 0 && habilidad.equals("mascota") && this.tipo.equals("cazador")){
+        else if(cantidadItems-5 > 0 && habilidad.equals("mascota") && this.tipo.equals("cazador") && mascota){
             cantidadItems -= 5;
             this.mascota = false;
             return this.tipo + " : Invocando Mascota " + "\n" + "Ahora le quedan " + this.cantidadItems + " de items";

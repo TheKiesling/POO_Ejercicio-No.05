@@ -25,6 +25,7 @@ public abstract class Combatiente {
     protected int ataque;
     protected String especial;
     private Mundo mundo;
+    protected boolean mascota;
 
     //---------------------------MÉTODOS------------------------------
 

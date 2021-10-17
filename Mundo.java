@@ -269,8 +269,17 @@ public class Mundo {
                     acciones(combatientes.get(i) + " : ha muerto"); //Agregar la acción al arreglo
                     if(combatientes.get(i).getTipo().equals("guerrero") || combatientes.get(i).getTipo().equals("explorador") || combatientes.get(i).getTipo().equals("cazador"))
                         jugadores--; //Se muere un jugador
-                    else
-                        enemigos--; //Se muere un enemigo
+
+                    if(combatientes.get(i).getTipo().equals("cazador")){
+                        for (int j = 0; j < combatientes.size(); j++)
+                            if(combatientes.get(j) != null)
+                                if(combatientes.get(j).getTipo().equals("mascota")){
+                                    if (j-jugadores-enemigos-1 == i){
+                                            muerte +=  "\n" + combatientes.get(j).morir(); //Concatenar el mensaje
+                                            combatientes.remove(combatientes.get(j));
+                                    }
+                                }
+                    }
                     combatientes.remove(combatientes.get(i));
                 }
             }  
@@ -319,6 +328,7 @@ public class Mundo {
             if(acompanantes.get(i) != null && acompanantes.get(i).getTipo().equals("mascota")){
                 String habilidad = acompanantes.get(i).especial(accion, objetivo);
                 acciones(habilidad);
+                break;
             }
         }
     }

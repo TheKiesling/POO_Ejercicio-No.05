@@ -51,9 +51,9 @@ public class Controlador {
             int enemigos = mundo.getEnemigos();
             int combatientes = enemigos + jugadores; //Número de combatientes en la partida
 
-            System.out.println(combatientes);
 
             int opcion = -1;
+            int esperar = -1;
             while (opcion != 4){ //Ciclo de menú
                 int turno = 0;
                 while(turno != combatientes){ //Ciclo de turnos
@@ -81,9 +81,16 @@ public class Controlador {
                         String muerte = mundo.muerte(); //Desplegar si con esta acción ocurrió una muerte
                         vista.muerte(muerte);
                         if(muerte.equals("")){}
+                        else if(muerte.equals("mascota : Ha sido un honor estar en la batalla")){
+                            esperar = 0;
+                        }
                         else {
                             turno--; //De haberla, modifica el turno y la cantidad de combatientes
                             combatientes--;
+                        }
+                        if (esperar == 3){
+                            if (mundo.objetivo(turno).getTipo().equals("cazador"))
+                                mundo.objetivo(turno).mascota = true;
                         }
                         String ganar = mundo.ganar(); //Desplegar mensaje de ganar
                         vista.ganar(ganar);
@@ -104,8 +111,10 @@ public class Controlador {
                         }
                         if (especial.equals("mascota")){ //Crear una mascota
                             enemigo = turno;
-                            String saludo_mascota = mundo.mascota();
-                            vista.saludar(saludo_mascota);
+                            if (mundo.objetivo(turno).mascota){
+                                String saludo_mascota = mundo.mascota();
+                                vista.saludar(saludo_mascota);
+                            }
                         }
                         else{
                             enemigo = vista.pedirEnemigo(); //Pedir enemigo al que se quiere emplear el especial
@@ -118,9 +127,16 @@ public class Controlador {
                         String muerte = mundo.muerte();//Desplegar si con esta acción ocurrió una muerte
                         vista.muerte(muerte);
                         if(muerte.equals("")){}
+                        else if(muerte.equals("mascota : Ha sido un honor estar en la batalla")){
+                            esperar = 0;
+                        }
                         else {
                             turno--; //De haberla, modifica el turno y la cantidad de combatientes
                             combatientes--;
+                        }
+                        if (esperar == 3){
+                            if (mundo.objetivo(turno).getTipo().equals("cazador"))
+                                mundo.objetivo(turno).mascota = true;
                         }
                         String ganar = mundo.ganar(); //Desplegar mensaje de ganar
                         vista.ganar(ganar);
@@ -141,7 +157,7 @@ public class Controlador {
                         break;
                     }
                 }
-
+                esperar++;
             }
         } catch (Exception e){
             String s = "ERROR: " + e.getMessage();
