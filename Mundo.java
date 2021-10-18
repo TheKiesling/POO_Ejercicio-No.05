@@ -30,6 +30,7 @@ public class Mundo {
     private ArrayList<Combatiente> combatientes = new ArrayList<Combatiente>(); //Arreglo de los combatientes
     private ArrayList<Acompanante> acompanantes = new ArrayList<Acompanante>(); //Arreglo de los acompanates
     private Random rand = new Random();
+    private Boolean ganar = false;
 
     //---------------------------MÉTODOS------------------------------
 
@@ -37,7 +38,7 @@ public class Mundo {
      * Mundo: permite la asginación de valores nulos a los arreglos
      */
     public Mundo(){
-        for (int i = 0; i < 11; i++)
+        for (int i = 0; i < 1000; i++)
             combatientes.add(null);
         for (int i = 0; i < 3; i++)
             acciones.add("");
@@ -97,49 +98,36 @@ public class Mundo {
         String saludo = "";
 
         //Si hay un enemigo
-        if (enemigos == 1){
+        if (enemigos == 2){
             //Dragón
-            Enemigo dragon = new Enemigo("dragon");
+            Enemigo dragon = new Jefe("dragon");
             combatientes.set(puestoDisponible(), dragon);
             enemigo.add(dragon);
+            acompanantes.add(dragon);
             saludo += "\n" + dragon.saludar();
         }
 
         //Si hay dos enemigos
-        if (enemigos == 2){
+        if (enemigos == 3){
             //Brujo
             Enemigo brujo = new Enemigo("brujo");
             combatientes.set(puestoDisponible(), brujo);
             enemigo.add(brujo);
+            acompanantes.add(brujo);
             saludo +=  "\n" + brujo.saludar();
 
             //Valquiria
             Enemigo valquiria = new Enemigo("valquiria");
             combatientes.set(puestoDisponible(), valquiria);
             enemigo.add(valquiria);
+            acompanantes.add(valquiria);
             saludo += "\n" + valquiria.saludar();
         }
 
-        //Si hay tres enemigos
-        if (enemigos == 3){
-            //Brujo
-            Enemigo brujo = new Enemigo("brujo");
-            combatientes.set(puestoDisponible(), brujo);
-            enemigo.add(brujo);
-            saludo += "\n" + brujo.saludar();
+        Combatiente raidboss = new Raidboss("raidboss");
+        combatientes.set(puestoDisponible(), raidboss);
+        saludo += "\n" + raidboss.saludar();
 
-            //Valquiria
-            Enemigo valquiria = new Enemigo("valquiria");
-            combatientes.set(puestoDisponible(), valquiria);
-            enemigo.add(valquiria);
-            saludo += "\n" + valquiria.saludar();
-
-            //Dragón
-            Enemigo dragon = new Enemigo("dragon");
-            combatientes.set(puestoDisponible(), dragon);
-            enemigo.add(dragon);
-            saludo += "\n" + dragon.saludar();
-        }
         return saludo;
     }
     //****************************************************************
@@ -269,6 +257,9 @@ public class Mundo {
                     acciones(combatientes.get(i) + " : ha muerto"); //Agregar la acción al arreglo
                     if(combatientes.get(i).getTipo().equals("guerrero") || combatientes.get(i).getTipo().equals("explorador") || combatientes.get(i).getTipo().equals("cazador"))
                         jugadores--; //Se muere un jugador
+                    else if (combatientes.get(i).getTipo().equals("raidboss")){
+                        ganar = true;
+                    }
 
                     if(combatientes.get(i).getTipo().equals("cazador")){
                         for (int j = 0; j < combatientes.size(); j++)
@@ -333,17 +324,93 @@ public class Mundo {
         }
     }
 
+    public void ataqueAcompanante(int dano, Combatiente objetivo, int dueno){
+        for (int i = 0; i < combatientes.size(); i++){
+            if(combatientes.get(i) != null){
+                String tipo = combatientes.get(i).getTipo();
+                if((tipo.equals("dragon") || (tipo.equals("mascota") || tipo.equals("valquiria") || tipo.equals("brujo"))) && dueno == combatientes.get(i).dueno){
+                    String habilidad = combatientes.get(i).especial(combatientes.get(i).habilidad, objetivo);
+                    acciones(habilidad);
+                }
+            }
+        }
+    }
+
+    public String clonar(Combatiente objetivo, String habilidad, int dueno) throws Exception{
+        String saludo = "";
+        try{
+            String tipo = objetivo.getTipo();
+            if(tipo.equals("dragon")){
+                Acompanante acompanante = new Jefe (tipo);
+                combatientes.set(puestoDisponible(), acompanante);  
+                saludo = acompanante.saludar();
+                acompanante.setEspecial(habilidad);
+                acompanante.dueno = dueno;
+            }
+            else if(tipo.equals("mascota")){
+                Acompanante acompanante = new Mascota(tipo);
+                combatientes.set(puestoDisponible(), acompanante); 
+                saludo = acompanante.saludar();
+                acompanante.setEspecial(habilidad);
+                acompanante.dueno = dueno;
+            }
+            else if(tipo.equals("valquiria") || tipo.equals("brujo")){
+                Acompanante acompanante = new Enemigo(tipo);
+                combatientes.set(puestoDisponible(), acompanante); 
+                saludo = acompanante.saludar(); 
+                acompanante.setEspecial(habilidad);
+                acompanante.dueno = dueno;
+            }
+            else{
+                saludo = "false";
+            }
+            
+        } catch(Exception e){
+            String s = "Mundo.clonar: " + e.getMessage() + " TIENE QUE SELECCIONAR UN ENEMIGO O MASCOTA";
+            throw new Exception(s);
+        }
+        return saludo;
+    }
+
+    public void variar(int dueno){
+        for (int i = 0; i < combatientes.size(); i++){
+            if(combatientes.get(i) != null){
+                String tipo = combatientes.get(i).getTipo();
+                if((tipo.equals("dragon") || (tipo.equals("mascota") || tipo.equals("valquiria") || tipo.equals("brujo"))) && dueno == combatientes.get(i).dueno){
+                    if(combatientes.get(i).habilidad.equals("disparo dirigido")){
+                        combatientes.get(i).setEspecial("rayos laser");
+                    }
+                    else
+                        combatientes.get(i).setEspecial("disparo dirigido");
+                }
+            }
+        }
+    }
+
+    public void liberar(int dueno){
+        for (int i = 0; i < combatientes.size(); i++)
+            if(combatientes.get(i) != null){
+                String tipo = combatientes.get(i).getTipo();
+                if((tipo.equals("dragon") || (tipo.equals("mascota") || tipo.equals("valquiria") || tipo.equals("brujo"))) && dueno == combatientes.get(i).dueno)
+                    combatientes.remove(combatientes.get(i));
+            }
+    }
+
     /*****************************************************************
      * ganar: Verifica si alguno de los dos bandos ganó y de hacerlo, muestra el mensaje del combatiente
      * @return
      */
     public String ganar(){
         String ganar = "";
-        if (jugadores == 0 || enemigos == 0){ //Si uno de los 2 es 0, es porque hubo un victorioso
+        if (jugadores == 0)//Si ganan los enemigos
             for (int i = 0; i < combatientes.size(); i++)
-                if(combatientes.get(i) != null){
+                if(combatientes.get(i) != null)
                     ganar += "\n" + combatientes.get(i).ganar();
-                }
+        if (this.ganar){
+            for (int j = 0; j < combatientes.size(); j++)
+                if(combatientes.get(j) != null)
+                    if(combatientes.get(j).getTipo().equals("guerrero") || combatientes.get(j).getTipo().equals("explorador") || combatientes.get(j).getTipo().equals("cazador"))
+                        ganar += "\n" + combatientes.get(j).ganar();
         }
         return ganar;
     }

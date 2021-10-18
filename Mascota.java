@@ -44,14 +44,14 @@ public class Mascota extends Acompanante{
             return this.tipo + " : Ejecutando " + habilidad + " hacia " + objetivo;
         }
 
-        //Daga infernal
-        else if(habilidad.equals("daga infernal")){
+        //Disparo dirigido
+        else if(habilidad.equals("disparo dirigido")){
             atacar(objetivo, 8);
             return this.tipo + " : Ejecutando " + habilidad + " hacia " + objetivo;
         }
 
-        //Lluvia de lava
-        else if(habilidad.equals("Lluvia de lava")){
+        //Rayo laser
+        else if(habilidad.equals("rayos laser")){
             atacar(objetivo, 6);
             return this.tipo + " : Ejecutando " + habilidad + " hacia " + objetivo;
         }

@@ -20,7 +20,7 @@ public abstract class Acompanante extends Combatiente{
     */
 
     //---------------------------PROPIEDADES--------------------------
-    protected String habilidad;
+
 
     //---------------------------MÉTODOS------------------------------
 
@@ -41,12 +41,5 @@ public abstract class Acompanante extends Combatiente{
     public abstract String especial(String habilidad, Combatiente objetivo);
     //****************************************************************
 
-    /*****************************************************************
-     * setEspecial: permite que se le asigne un nuevo especial al acompanante
-     * @param habilidad
-     */
-    public void setEspecial(String habilidad){
-        this.habilidad = habilidad;
-    }
-    //*****************************************************************
+
 }

@@ -26,6 +26,11 @@ public abstract class Combatiente {
     protected String especial;
     private Mundo mundo;
     protected boolean mascota;
+    protected boolean clonar;
+    protected boolean usar_habilidad = true;
+    protected String[] habilidades;
+    protected String habilidad;
+    int dueno;
 
     //---------------------------MÉTODOS------------------------------
 
@@ -72,7 +77,7 @@ public abstract class Combatiente {
 
         //Dragón
         if (this.tipo.equals("dragon")){
-            this.vida = 60;
+            this.vida = 25;
             this.ataque = 4;
             this.especial = "habilidad";
         }
@@ -80,6 +85,12 @@ public abstract class Combatiente {
         //Mascota
         if (this.tipo.equals("mascota")){
             this.vida = 10;
+            this.especial = "habilidad";
+        }
+
+        if (this.tipo.equals("raidboss")){
+            this.vida = 60;
+            this.ataque = 10;
             this.especial = "habilidad";
         }
     }
@@ -209,4 +220,13 @@ public abstract class Combatiente {
         return tipo;
     }
     //****************************************************************
+
+    /*****************************************************************
+     * setEspecial: permite que se le asigne un nuevo especial al acompanante
+     * @param habilidad
+     */
+    public void setEspecial(String habilidad){
+        this.habilidad = habilidad;
+    }
+    //*****************************************************************
 }

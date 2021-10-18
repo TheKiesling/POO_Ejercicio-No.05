@@ -77,6 +77,10 @@ public class Controlador {
                         if (mundo.objetivo(turno).getTipo().equals("cazador")){
                             mundo.ataqueMascota(mundo.objetivo(turno).ataque, objetivo, "atacar");
                         }
+                        if (mundo.objetivo(turno).getTipo().equals("raidboss")){
+                            final int dueno = turno;
+                            mundo.ataqueAcompanante(mundo.objetivo(turno).ataque, objetivo, dueno);
+                        }
                         turno++; //Cambiar de turno
                         String muerte = mundo.muerte(); //Desplegar si con esta acción ocurrió una muerte
                         vista.muerte(muerte);
@@ -109,13 +113,38 @@ public class Controlador {
                         if (especial.equals("experiencia")){ //Si quiere benefiicarse, no se pide enemigo
                             enemigo = turno;
                         }
-                        if (especial.equals("mascota")){ //Crear una mascota
+                        else if (especial.equals("mascota")){ //Crear una mascota
                             enemigo = turno;
                             if (mundo.objetivo(turno).mascota){
                                 String saludo_mascota = mundo.mascota();
                                 vista.saludar(saludo_mascota);
                             }
                         }
+                        else if (especial.equals("clonar") && mundo.objetivo(turno).getTipo().equals("raidboss")){ //Clonar
+                            enemigo = vista.pedirEnemigo(); //Pedir enemigo al que se quiere emplear el especial
+                            Combatiente aCombatiente = mundo.objetivo(enemigo); //Relacionar el input con el combatiente
+                            final int dueno = turno;
+                            String saludo_clon = mundo.clonar(aCombatiente, mundo.objetivo(turno).habilidades[0], dueno);
+                            if (saludo_clon.equals("false"))
+                                mundo.objetivo(turno).clonar = false;
+                            else {
+                                mundo.objetivo(turno).clonar = true;
+                                mundo.objetivo(turno).usar_habilidad = false;
+                            } 
+                            vista.saludar(saludo_clon);
+                        }
+                        else if(especial.equals("variar") && mundo.objetivo(turno).getTipo().equals("raidboss")){
+                            enemigo = turno;
+                            final int dueno = turno;
+                            mundo.variar(dueno);
+                        }
+                        else if(especial.equals("liberar") && mundo.objetivo(turno).getTipo().equals("raidboss")){
+                            enemigo = turno;
+                            final int dueno = turno;
+                            mundo.liberar(dueno);
+                            mundo.objetivo(turno).usar_habilidad = true;
+                        }
+
                         else{
                             enemigo = vista.pedirEnemigo(); //Pedir enemigo al que se quiere emplear el especial
                             Combatiente objetivo = mundo.objetivo(enemigo); //Relacionar el input con el combatiente

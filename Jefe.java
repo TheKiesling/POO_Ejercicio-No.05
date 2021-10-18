@@ -105,4 +105,12 @@ public class Jefe extends Enemigo{
         return "Soy: jefe " + this.tipo + " y he entrado a la batalla";
     }
     //****************************************************************
+
+    /*****************************************************************
+     * toString: método overraideado que muestra el nombre del raidboss y su vida
+     */
+    public String toString(){
+        return "Jefe " + this.tipo + " : tiene - " + this.vida + " - vida";
+    }
+    //****************************************************************
 }

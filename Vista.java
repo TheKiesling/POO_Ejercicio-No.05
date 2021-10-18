@@ -216,7 +216,11 @@ public class Vista {
             System.out.println("6. Incrementar ataque. Disponible para Exploradores y Jefes Brujos. Un hechizo que hace que el ataque del combatiente que se desee se incremente en 2. Usa 5 items para los exploradores" + "\n");
             System.out.println("7. Experiencia. Disponible para todos los enemigos normales (no jefes). Una habilidad que permite que el enemigo pueda ser jefe. Se necesita 4 veces esta habilidad para lograr ser jefe" + "\n");
             System.out.println("8. Mascota. Disponible para cazadores. Invoca una mascota que obedece al cazador y ataca objetivos. Usa 5 items para los cazadores" + "\n");
-            System.out.println("9. Disparo dirigido. Disponible para Cazadores. Un disparo directo al objetivo que desee el cazador. Usa 3 items" + "\n");
+            System.out.println("9. Disparo dirigido. Disponible para Cazadores y RaidBoss. Un disparo directo al objetivo que desee el cazador. Usa 3 items para los cazadores" + "\n");
+            System.out.println("10. Rayos laser. Disponible para RaidBoss. Un rayo laser que efectua gran dano" + "\n");
+            System.out.println("11. Clonar" + "\n");
+            System.out.println("12. Variar" + "\n");
+            System.out.println("13. Liberar" + "\n");
             especial = scan.nextLine().toLowerCase();
             System.out.println();       
         } catch (Exception e){ //Captura cualquier error que no sea de input
