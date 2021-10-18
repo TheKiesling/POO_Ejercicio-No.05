@@ -14,7 +14,7 @@ public class Jugador extends Combatiente{
     Nombre del programa: Jugador.java
     @version: 
         - Creación: 22/09/2021
-        - Última modificación: 12/10/2021
+        - Última modificación: 18/10/2021
 
     Clase que tiene las propiedades y métodos específicos de los jugadores. Sirve como hijo 
     */
@@ -65,6 +65,8 @@ public class Jugador extends Combatiente{
 
     /*****************************************************************
      * especial: busca si la habilidad especial puede ejecutarla el enemigo del que se trata, y llama al método que corresponde. Además reduce la cantidad de items
+     * @param habilidad
+     * @param objetivo
      */
     public String especial(String habilidad, Combatiente objetivo){
         //Espada ignea
@@ -125,7 +127,6 @@ public class Jugador extends Combatiente{
 
         else 
             return this.tipo + " : quizo ejecutar " + habilidad + " hacia " + objetivo + " pero no pudo";
-        
     }
     //****************************************************************
 }

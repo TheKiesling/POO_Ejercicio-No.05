@@ -14,13 +14,10 @@ public abstract class Acompanante extends Combatiente{
     Nombre del programa: Acompanante.java
     @version: 
         - Creación: 13/10/2021
-        - Última modificación: 13/10/2021
+        - Última modificación: 18/10/2021
 
     Clase que tiene las propiedades y métodos específicos de los acompanantes. Sirve como hijo y padre
     */
-
-    //---------------------------PROPIEDADES--------------------------
-
 
     //---------------------------MÉTODOS------------------------------
 
@@ -40,6 +37,4 @@ public abstract class Acompanante extends Combatiente{
      */
     public abstract String especial(String habilidad, Combatiente objetivo);
     //****************************************************************
-
-
 }

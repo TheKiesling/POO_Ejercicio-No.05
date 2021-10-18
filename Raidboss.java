@@ -14,7 +14,7 @@ public class Raidboss extends Combatiente{
     Nombre del programa: Raidboss.java
     @version: 
         - Creación: 17/10/2021
-        - Última modificación: 17/10/2021
+        - Última modificación: 18/10/2021
 
     Clase que sirve como hijo de jefe y nieto de enemigo al tener sus propiedades y métodos, pero mejorados
     */
@@ -33,6 +33,11 @@ public class Raidboss extends Combatiente{
         habilidades[1] = "rayos laser";
     }
 
+    /*****************************************************************
+     * especial: busca si la habilidad especial puede ejecutarla el enemigo del que se trata, y llama al método que corresponde. Además reduce la cantidad de items
+     * @param habilidad
+     * @param objetivo
+     */
     public String especial(String habilidad, Combatiente objetivo){
         //Clonar
         if(habilidad.equals("clonar") && clonar){
@@ -65,6 +70,7 @@ public class Raidboss extends Combatiente{
             return this.tipo + " : quizo ejecutar " + habilidad + " hacia " + objetivo + " pero no pudo";
 
     }
+    //****************************************************************
 
     /*****************************************************************
      * saludar: método overraideado que muestra un nuevo saludo de este combatiente
@@ -81,6 +87,4 @@ public class Raidboss extends Combatiente{
         return this.nombre + " : tiene - " + this.vida + " - vida";
     }
     //****************************************************************
-
-
 }

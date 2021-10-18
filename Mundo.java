@@ -17,7 +17,7 @@ public class Mundo {
     Nombre del programa: Mundo.java
     @version: 
         - Creación: 25/09/2021
-        - Última modificación: 28/09/2021
+        - Última modificación: 18/10/2021
 
     Clase que tiene las propiedades y métodos del mundo en donde se desarrolla el juego
     */
@@ -314,6 +314,12 @@ public class Mundo {
     }
     //****************************************************************
 
+    /*****************************************************************
+     * ataqueMascota: Efectúa el ataque del cazador al mismo objetivo
+     * @param dano
+     * @param objetivo
+     * @param accion
+     */
     public void ataqueMascota(int dano, Combatiente objetivo, String accion){
         for (int i = 0; i < acompanantes.size(); i++){
             if(acompanantes.get(i) != null && acompanantes.get(i).getTipo().equals("mascota")){
@@ -323,19 +329,35 @@ public class Mundo {
             }
         }
     }
+    //****************************************************************
 
+    /*****************************************************************
+     * ataqueAcompanante: Efectúa el ataque del RaidBoss al objetivo que indique
+     * @param dano
+     * @param objetivo
+     * @param dueno
+     */
     public void ataqueAcompanante(int dano, Combatiente objetivo, int dueno){
         for (int i = 0; i < combatientes.size(); i++){
             if(combatientes.get(i) != null){
                 String tipo = combatientes.get(i).getTipo();
-                if((tipo.equals("dragon") || (tipo.equals("mascota") || tipo.equals("valquiria") || tipo.equals("brujo"))) && dueno == combatientes.get(i).dueno){
-                    String habilidad = combatientes.get(i).especial(combatientes.get(i).habilidad, objetivo);
+                if((tipo.equals("dragon") || (tipo.equals("mascota") || tipo.equals("valquiria") || tipo.equals("brujo"))) && dueno == combatientes.get(i).dueno){ //Todos los clones
+                    String habilidad = combatientes.get(i).especial(combatientes.get(i).habilidad, objetivo); //Aplicar habilidad al objetivo
                     acciones(habilidad);
                 }
             }
         }
     }
+    //****************************************************************
 
+    /*****************************************************************
+     * clonar: Crea una instancia de un combatiente, le dota de una habilidad, y le asigna un dueno
+     * @param objetivo
+     * @param habilidad
+     * @param dueno
+     * @return
+     * @throws Exception
+     */
     public String clonar(Combatiente objetivo, String habilidad, int dueno) throws Exception{
         String saludo = "";
         try{
@@ -362,7 +384,7 @@ public class Mundo {
                 acompanante.dueno = dueno;
             }
             else{
-                saludo = "false";
+                saludo = "false"; //Si no se pudo clonar
             }
             
         } catch(Exception e){
@@ -371,13 +393,18 @@ public class Mundo {
         }
         return saludo;
     }
+    //****************************************************************
 
+    /*****************************************************************
+     * variar: Switch de la habilidad especial de los clones
+     * @param dueno
+     */
     public void variar(int dueno){
         for (int i = 0; i < combatientes.size(); i++){
             if(combatientes.get(i) != null){
                 String tipo = combatientes.get(i).getTipo();
-                if((tipo.equals("dragon") || (tipo.equals("mascota") || tipo.equals("valquiria") || tipo.equals("brujo"))) && dueno == combatientes.get(i).dueno){
-                    if(combatientes.get(i).habilidad.equals("disparo dirigido")){
+                if((tipo.equals("dragon") || (tipo.equals("mascota") || tipo.equals("valquiria") || tipo.equals("brujo"))) && dueno == combatientes.get(i).dueno){ //Todos los clones
+                    if(combatientes.get(i).habilidad.equals("disparo dirigido")){ //Si tiene esta habilidad, cambiar a la otra
                         combatientes.get(i).setEspecial("rayos laser");
                     }
                     else
@@ -386,7 +413,12 @@ public class Mundo {
             }
         }
     }
+    //****************************************************************
 
+    /*****************************************************************
+     * liberar: Elimina a todos los clones
+     * @param dueno
+     */
     public void liberar(int dueno){
         for (int i = 0; i < combatientes.size(); i++)
             if(combatientes.get(i) != null){
@@ -395,6 +427,7 @@ public class Mundo {
                     combatientes.remove(combatientes.get(i));
             }
     }
+    //****************************************************************
 
     /*****************************************************************
      * ganar: Verifica si alguno de los dos bandos ganó y de hacerlo, muestra el mensaje del combatiente

@@ -17,7 +17,7 @@ public class Vista {
     Nombre del programa: Vista.java
     @version: 
         - Creación: 21/09/2021
-        - Última modificación: 21/09/2021
+        - Última modificación: 18/10/2021
 
     Clase que tiene como fin ser un sistema I/O para la manipulación del programa
      */ 
@@ -218,9 +218,9 @@ public class Vista {
             System.out.println("8. Mascota. Disponible para cazadores. Invoca una mascota que obedece al cazador y ataca objetivos. Usa 5 items para los cazadores" + "\n");
             System.out.println("9. Disparo dirigido. Disponible para Cazadores y RaidBoss. Un disparo directo al objetivo que desee el cazador. Usa 3 items para los cazadores" + "\n");
             System.out.println("10. Rayos laser. Disponible para RaidBoss. Un rayo laser que efectua gran dano" + "\n");
-            System.out.println("11. Clonar" + "\n");
-            System.out.println("12. Variar" + "\n");
-            System.out.println("13. Liberar" + "\n");
+            System.out.println("11. Clonar. Disponible para RaidBoss. Clona a un acompanante y lo alia a su bando" + "\n");
+            System.out.println("12. Variar. Disponible para RaidBoss. Cambia la habilidad especial de los acompanantes que hayan sido creados antes de este turno." + "\n");
+            System.out.println("13. Liberar. Disponible para RaidBoss. Elimina a todos los clones, y permite usar las habilidades especiales al RaidBoss nuevamente" + "\n");
             especial = scan.nextLine().toLowerCase();
             System.out.println();       
         } catch (Exception e){ //Captura cualquier error que no sea de input

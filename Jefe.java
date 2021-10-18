@@ -93,6 +93,18 @@ public class Jefe extends Enemigo{
             return this.tipo + " : Ejecutando " + habilidad + " hacia " + objetivo;
         }
 
+        //Disparo Dirigido
+        else if(habilidad.equals("disparo dirigido")){
+            atacar(objetivo, 8);
+            return this.tipo + " : Ejecutando " + habilidad + " hacia " + objetivo;
+        }
+
+        //Rayos laser
+        else if(habilidad.equals("rayos laser")){
+            atacar(objetivo, 6);
+            return this.tipo + " : Ejecutando " + habilidad + " hacia " + objetivo;
+        }
+
         else 
             return this.tipo + " : quizo ejecutar " + habilidad + " hacia " + objetivo + " pero no pudo";
     }

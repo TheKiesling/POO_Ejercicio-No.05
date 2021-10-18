@@ -11,10 +11,10 @@
 public class Mascota extends Acompanante{
     /** 
     @author: José Pablo Kiesling Lange
-    Nombre del programa: Acompanante.java
+    Nombre del programa: Mascota.java
     @version: 
         - Creación: 13/10/2021
-        - Última modificación: 13/10/2021
+        - Última modificación: 18/10/2021
 
     Clase que tiene las propiedades y métodos específicos de las mascotas. Sirve como hijo 
     */

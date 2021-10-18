@@ -14,7 +14,7 @@ public abstract class Combatiente {
     Nombre del programa: Combatiente.java
     @version: 
         - Creación: 22/09/2021
-        - Última modificación: 12/10/2021
+        - Última modificación: 18/10/2021
 
     Clase que tiene las propiedades y métodos de los combatientes. Sirve como padre 
     */
@@ -30,7 +30,7 @@ public abstract class Combatiente {
     protected boolean usar_habilidad = true;
     protected String[] habilidades;
     protected String habilidad;
-    int dueno;
+    protected int dueno;
 
     //---------------------------MÉTODOS------------------------------
 
@@ -227,6 +227,60 @@ public abstract class Combatiente {
      */
     public void setEspecial(String habilidad){
         this.habilidad = habilidad;
+    }
+    //****************************************************************
+
+    /*****************************************************************
+     * getHabilidades: retorna las habilidades del combatiente
+     * @return
+     */
+    public String[] getHabilidades(){
+        return habilidades;
+    }
+    //****************************************************************
+
+    /*****************************************************************
+     * setClonar: cambia el estado de poder clonar o no
+     * @param clonar
+     */
+    public void setClonar(boolean clonar){
+        this.clonar = clonar;
+    }
+    //*****************************************************************
+
+    /******************************************************************
+     * getAtaque: retorna el poder de ataque del combatiente
+     * @return
+     */
+    public int getAtaque(){
+        return ataque;
+    }
+    //*****************************************************************
+
+    /******************************************************************
+     * setMascota: indica si el combatiente va a poder tener mascota o no
+     * @param mascota
+     */
+    public void setMascota(boolean mascota){
+        this.mascota = mascota;
+    }
+    //*****************************************************************
+
+    /******************************************************************
+     * getMascota: indica si el combatiente puede tener mascota
+     * @return
+     */
+    public boolean getMascota(){
+        return mascota;
+    }
+    //*****************************************************************
+
+    /******************************************************************
+     * setUsarHabilidad: indica si puede usar habilidad
+     * @param habilidad
+     */
+    public void setUsarHabilidad(boolean habilidad){
+        usar_habilidad = habilidad;
     }
     //*****************************************************************
 }

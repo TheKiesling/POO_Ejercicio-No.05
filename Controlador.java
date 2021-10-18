@@ -14,7 +14,7 @@ public class Controlador {
     Nombre del programa: Controlador.java
     @version: 
         - Creación: 21/09/2021
-        - Última modificación: 27/09/2021
+        - Última modificación: 18/10/2021
 
     Clase que comunica el modelo con la vista y controla sus acciones
     */ 
@@ -74,27 +74,27 @@ public class Controlador {
                         int enemigo = vista.pedirEnemigo(); //Pedir enemigo al que se quiere atacar
                         Combatiente objetivo = mundo.objetivo(enemigo); //Relacionar el input con el combatiente
                         mundo.atacar(turno, objetivo); //Atacar
-                        if (mundo.objetivo(turno).getTipo().equals("cazador")){
-                            mundo.ataqueMascota(mundo.objetivo(turno).ataque, objetivo, "atacar");
+                        if (mundo.objetivo(turno).getTipo().equals("cazador")){ //Si ataca un cazador
+                            mundo.ataqueMascota(mundo.objetivo(turno).getAtaque(), objetivo, "atacar");
                         }
-                        if (mundo.objetivo(turno).getTipo().equals("raidboss")){
+                        if (mundo.objetivo(turno).getTipo().equals("raidboss")){ //Si ataca un RaidBoss
                             final int dueno = turno;
-                            mundo.ataqueAcompanante(mundo.objetivo(turno).ataque, objetivo, dueno);
+                            mundo.ataqueAcompanante(mundo.objetivo(turno).getAtaque(), objetivo, dueno);
                         }
                         turno++; //Cambiar de turno
                         String muerte = mundo.muerte(); //Desplegar si con esta acción ocurrió una muerte
                         vista.muerte(muerte);
                         if(muerte.equals("")){}
                         else if(muerte.equals("mascota : Ha sido un honor estar en la batalla")){
-                            esperar = 0;
+                            esperar = 0; //Empezar el proceso para esperar invocar una mascota
                         }
                         else {
                             turno--; //De haberla, modifica el turno y la cantidad de combatientes
                             combatientes--;
                         }
-                        if (esperar == 3){
+                        if (esperar == 2){ //Ya puede invocar mascotas nuevamente
                             if (mundo.objetivo(turno).getTipo().equals("cazador"))
-                                mundo.objetivo(turno).mascota = true;
+                                mundo.objetivo(turno).setMascota(true);
                         }
                         String ganar = mundo.ganar(); //Desplegar mensaje de ganar
                         vista.ganar(ganar);
@@ -115,7 +115,7 @@ public class Controlador {
                         }
                         else if (especial.equals("mascota")){ //Crear una mascota
                             enemigo = turno;
-                            if (mundo.objetivo(turno).mascota){
+                            if (mundo.objetivo(turno).getMascota()){ //Si si puede invocar una mascota, lo hace
                                 String saludo_mascota = mundo.mascota();
                                 vista.saludar(saludo_mascota);
                             }
@@ -124,32 +124,32 @@ public class Controlador {
                             enemigo = vista.pedirEnemigo(); //Pedir enemigo al que se quiere emplear el especial
                             Combatiente aCombatiente = mundo.objetivo(enemigo); //Relacionar el input con el combatiente
                             final int dueno = turno;
-                            String saludo_clon = mundo.clonar(aCombatiente, mundo.objetivo(turno).habilidades[0], dueno);
-                            if (saludo_clon.equals("false"))
-                                mundo.objetivo(turno).clonar = false;
+                            String saludo_clon = mundo.clonar(aCombatiente, mundo.objetivo(turno).getHabilidades()[0], dueno);
+                            if (saludo_clon.equals("false")) //Si no se puede clonar
+                                mundo.objetivo(turno).setClonar(false);
                             else {
-                                mundo.objetivo(turno).clonar = true;
-                                mundo.objetivo(turno).usar_habilidad = false;
+                                mundo.objetivo(turno).setClonar(true);; //Si se pudo clonar
+                                mundo.objetivo(turno).setUsarHabilidad(false); //Ya no puede usar habilidades
                             } 
                             vista.saludar(saludo_clon);
                         }
-                        else if(especial.equals("variar") && mundo.objetivo(turno).getTipo().equals("raidboss")){
+                        else if(especial.equals("variar") && mundo.objetivo(turno).getTipo().equals("raidboss")){ //Variar la habilidad especial
                             enemigo = turno;
                             final int dueno = turno;
                             mundo.variar(dueno);
                         }
-                        else if(especial.equals("liberar") && mundo.objetivo(turno).getTipo().equals("raidboss")){
+                        else if(especial.equals("liberar") && mundo.objetivo(turno).getTipo().equals("raidboss")){ //Liberar a los clones
                             enemigo = turno;
                             final int dueno = turno;
                             mundo.liberar(dueno);
-                            mundo.objetivo(turno).usar_habilidad = true;
+                            mundo.objetivo(turno).setUsarHabilidad(true); //Permitir el uso nuevamente de habilidad
                         }
 
                         else{
                             enemigo = vista.pedirEnemigo(); //Pedir enemigo al que se quiere emplear el especial
                             Combatiente objetivo = mundo.objetivo(enemigo); //Relacionar el input con el combatiente
                             if (especial.equals("disparo dirigido") && mundo.objetivo(turno).getTipo().equals("cazador")) //Disparo dirigido
-                                mundo.ataqueMascota(mundo.objetivo(turno).ataque, objetivo, "atacar");
+                                mundo.ataqueMascota(mundo.objetivo(turno).getAtaque(), objetivo, "atacar");
                         }
                         Combatiente objetivo = mundo.objetivo(enemigo); //Relacionar el input con el combatiente
                         mundo.especial(turno, especial, objetivo); //Ejecutar el especial
@@ -163,9 +163,9 @@ public class Controlador {
                             turno--; //De haberla, modifica el turno y la cantidad de combatientes
                             combatientes--;
                         }
-                        if (esperar == 3){
+                        if (esperar == 2){
                             if (mundo.objetivo(turno).getTipo().equals("cazador"))
-                                mundo.objetivo(turno).mascota = true;
+                                mundo.objetivo(turno).setMascota(true);
                         }
                         String ganar = mundo.ganar(); //Desplegar mensaje de ganar
                         vista.ganar(ganar);
